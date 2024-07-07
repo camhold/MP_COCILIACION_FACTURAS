@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_form_inherit_button" model="ir.ui.view">
+        <field name="name">account.move.form.inherit.button</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//widget[@name='web_ribbon']" position="after">
+                <widget name="web_ribbon" title="Conciliado SII" attrs="{'invisible':[('facturas_conciliacion_id','=',False)]}"/>
+            </xpath>
+            <xpath expr="//button[@name='button_set_checked']" position="after">
+                <field name="show_btn_reconcile_button" invisible="1"/>
+                <button name="button_reconcile_custom" string="Conciliar Factura" type="object"
+                        style="background-color: #808080; color: #ffffff;" class="btn btn-secondary" disabled="1"
+                        attrs="{'invisible':[('show_btn_reconcile_button', '=', True)]}"/>
+                <button name="button_reconcile_custom" string="Conciliar Factura" type="object"
+                        attrs="{'invisible':[('show_btn_reconcile_button', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//group/group[@id='header_left_group']/field[@name='partner_id']" position="after">
+                <div class="o_td_label">
+                    <label for="facturas_conciliacion_id" string="Documento Conciliado" style="font-weight:bold;"/>
+                </div>
+                <field name="facturas_conciliacion_id" nolabel="1"/>
+            </xpath>
+            <xpath expr="//field[@name='sii_document_number']" position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
